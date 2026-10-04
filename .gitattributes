@@ -1,0 +1,18 @@
+# Normalize line endings on checkout, commit LF in the repo.
+* text=auto eol=lf
+
+# Windows
+*.cmd   text eol=crlf
+*.bat   text eol=crlf
+*.ps1   text eol=crlf
+
+# Keep generated/vendored assets verbatim
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.pdf   binary
+*.db    binary
+*.woff  binary
+*.woff2 binary

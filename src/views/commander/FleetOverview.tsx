@@ -15,6 +15,11 @@ import { PageHeader, SectionHeader } from '@/components/shared/Tooltip';
 import { StatusBadge, PriorityBadge } from '@/components/shared/Badge';
 import AircraftCard from '@/components/shared/AircraftCard';
 import AircraftSlideOver from '@/components/shared/AircraftSlideOver';
+import CommandDecisionSummary from '@/components/commander/CommandDecisionSummary';
+import CommandPriorityQueue from '@/components/commander/CommandPriorityQueue';
+import FleetPositionMap from '@/components/commander/FleetPositionMap';
+import AircraftDecisionDrawer from '@/components/commander/AircraftDecisionDrawer';
+import { useCommand } from '@/context/CommandContext';
 import HealthTrendChart from '@/components/charts/HealthTrendChart';
 import FleetDonutChart from '@/components/charts/FleetDonutChart';
 import { useSensors } from '@/context/SensorContext';
@@ -36,6 +41,10 @@ export default function FleetOverview() {
   const { predictions, workOrders } = useData();
   const loading = useMockLoading();
   const [selected, setSelected] = useState<Aircraft | null>(null);
+  const { openAircraftId, openAircraft } = useCommand();
+
+  const decisionAircraft =
+    aircraft.find((a) => a.id === openAircraftId) ?? null;
 
   const operational = aircraft.filter((a) => a.status === 'operational').length;
   const maintenance = aircraft.filter((a) => a.status === 'maintenance').length;
@@ -69,7 +78,16 @@ export default function FleetOverview() {
         </div>
       )}
 
-      {/* 2 — status map */}
+      {/* 2 — command decision */}
+      {!loading ? <CommandDecisionSummary /> : null}
+
+      {/* 3 — priority queue */}
+      {!loading ? <CommandPriorityQueue /> : null}
+
+      {/* 4 — operational map */}
+      {!loading ? <FleetPositionMap /> : null}
+
+      {/* 5 — status map */}
       <section className="ag-fade ag-fade-2">
         <SectionHeader
           title="Fleet Status Overview"
@@ -212,6 +230,13 @@ export default function FleetOverview() {
       </section>
 
       <AircraftSlideOver aircraft={selected} onClose={() => setSelected(null)} />
+
+      {/* shared Mission Impact drawer — opened from the priority queue or the
+          Command Decision card, for any airframe */}
+      <AircraftDecisionDrawer
+        aircraft={decisionAircraft}
+        onClose={() => openAircraft(null)}
+      />
     </div>
   );
 }

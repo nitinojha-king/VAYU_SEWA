@@ -20,6 +20,7 @@ import {
   ShoppingCart,
   Truck,
   BarChart3,
+  MessageSquare,
   type LucideIcon,
 } from 'lucide-react';
 import type { Role } from '@/data/types';
@@ -35,6 +36,7 @@ export const NAV_ITEMS: Record<Role, NavItem[]> = {
   commander: [
     { to: '/commander', label: 'Fleet Overview', icon: LayoutDashboard, end: true },
     { to: '/commander/map', label: 'Aircraft Status Map', icon: Map },
+    { to: '/commander/communications', label: 'Communications', icon: MessageSquare },
     { to: '/commander/readiness', label: 'Mission Readiness', icon: Shield },
     { to: '/commander/alerts', label: 'Critical Alerts', icon: AlertTriangle },
     { to: '/commander/reports', label: 'Reports', icon: FileText },
@@ -42,6 +44,7 @@ export const NAV_ITEMS: Record<Role, NavItem[]> = {
   engineer: [
     { to: '/engineer', label: 'Aircraft Health', icon: Activity, end: true },
     { to: '/engineer/sensors', label: 'Live Sensor Data', icon: Gauge },
+    { to: '/engineer/communications', label: 'Communications', icon: MessageSquare },
     { to: '/engineer/predictions', label: 'Fault Predictions', icon: Brain },
     { to: '/engineer/workorders', label: 'Work Orders', icon: Wrench },
     { to: '/engineer/history', label: 'Maintenance History', icon: History },
@@ -54,6 +57,7 @@ export const NAV_ITEMS: Record<Role, NavItem[]> = {
     { to: '/logistics/demand', label: 'Upcoming Demand', icon: CalendarDays },
     { to: '/logistics/procurement', label: 'Procurement Alerts', icon: ShoppingCart },
     { to: '/logistics/tracking', label: 'Procurement Tracking', icon: Truck },
+    { to: '/logistics/communications', label: 'Communications', icon: MessageSquare },
     { to: '/logistics/analytics', label: 'Parts Analytics', icon: BarChart3 },
     { to: '/logistics/reports', label: 'Reports', icon: FileText },
   ],
